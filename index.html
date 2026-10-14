@@ -1,20 +1,459 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>La página de Samuelillo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hachis Barato | Drogueria</title>
+
+  <style>
+    :root {
+      --verde: #39ff14;
+      --negro: #050505;
+      --panel: #101410;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--negro);
+      color: var(--verde);
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      text-align: center;
+      padding: 35px 15px;
+      border-bottom: 1px solid var(--verde);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 7vw, 3.5rem);
+      letter-spacing: 5px;
+      text-shadow: 0 0 15px #39ff1480;
+    }
+
+    main {
+      max-width: 950px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    section {
+      background: var(--panel);
+      border: 1px solid #244322;
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="date"] {
+      padding: 12px;
+      background: var(--negro);
+      color: var(--verde);
+      border: 1px solid var(--verde);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 350px;
+    }
+
+    .cortes {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      cursor: pointer;
+      font-size: 15px;
+      border-radius: 9px;
+      transition: 0.2s;
+    }
+
+    .corte {
+      background: var(--negro);
+      color: var(--verde);
+      border: 1px solid #397a30;
+      padding: 16px 8px;
+      min-height: 75px;
+    }
+
+    .corte:hover,
+    .corte.seleccionado {
+      background: var(--verde);
+      color: var(--negro);
+    }
+
+    .horas {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 9px;
+    }
+
+    .hora {
+      padding: 12px 5px;
+      background: var(--negro);
+      color: var(--verde);
+      border: 1px solid #397a30;
+    }
+
+    .hora:hover:not(:disabled),
+    .hora.seleccionada {
+      background: var(--verde);
+      color: var(--negro);
+    }
+
+    .hora:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+
+    .resumen {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px dashed var(--verde);
+      border-radius: 8px;
+      line-height: 1.7;
+    }
+
+    .confirmar {
+      width: 100%;
+      padding: 15px;
+      margin-top: 15px;
+      background: var(--verde);
+      color: var(--negro);
+      border: none;
+      font-weight: bold;
+    }
+
+    .confirmar:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    #mensaje {
+      margin-top: 15px;
+      line-height: 1.6;
+    }
+
+    .aviso {
+      color: #a0b39c;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #789072;
+    }
+
+    @media (max-width: 600px) {
+      .cortes {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .horas {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Hola, soy Samuel</h1>
-  <p>Estudio Sistemas Microinformáticos y Redes.</p>
-  <p>Esta es mi primera página publicada en Internet.</p>
-  <ul>
-    <li>Me gusta el futbol</li>
-    <li>Y el GTA San Andreas</li>
-  </ul>
-  <a href="https://supertuxkart.net">Mi juego favorito</a>
-<img src="https://es.wikipedia.org/wiki/Lamine_Yamal">
+
+<header>
+  <p>Drogueria · SIN REGLAS</p>
+  <h1>Hachis barato</h1>
+  <p>Yonkarras</p>
+</header>
+
+<main>
+
+  <section>
+    <h2>01. Elige el día</h2>
+    <label for="fecha">Fecha y rapidito</label>
+    <input type="date" id="fecha">
+    <p class="aviso" id="horario">
+      Selecciona un día para ver las horas.
+    </p>
+  </section>
+
+  <section>
+    <h2>02. Elige tu merca</h2>
+
+    <div class="merca">
+      <button class="merca" data-corte="Hachis">
+        ✂ Hachis 10x35
+      </button>
+
+      <button class="merca" data-corte="Hachis">
+        ✦ Hachis 20x65
+      </button>
+
+      <button class="merca" data-corte="Hachis">
+        ⚡ Hachis 50 x 110
+      </button>
+
+      <button class="merca" data-corte="Hachis">
+        ✧ Hachis 100 x 200
+      </button>
+
+      <button class="Poderes" data-corte="Coca">
+        〰 1 x 60
+      </button>
+
+      <button class="Poderes" data-corte="Coca">
+        ★ 5 x 200
+      </button>
+
+      <button class="Poderes Rosas" data-corte="Tussy">
+        ◒ 2 x 80
+      </button>
+
+      <button class="pastis" data-corte="Pop Smoke">
+        ❋ 10 x 75
+      </button>
+    </div>
+  </section>
+
+  <section>
+    <h2>03. Elige la hora</h2>
+    <p class="aviso">
+      Cada cita dura 30 minutos. Las horas reservadas
+      aparecerán desactivadas.
+    </p>
+
+    <div class="horas" id="horas">
+      Selecciona primero una fecha.
+    </div>
+
+    <div class="resumen" id="resumen">
+      Selecciona un día, un corte y una hora.
+    </div>
+
+    <button class="confirmar" id="confirmar" disabled>
+      CONFIRMAR CITA
+    </button>
+
+    <div id="mensaje" role="status"></div>
+  </section>
+
+</main>
+
+<footer>
+  Yonkarras · Drogate con ESTILO
+</footer>
+
+<script>
+  const fecha = document.getElementById("fecha");
+  const horas = document.getElementById("horas");
+  const horario = document.getElementById("horario");
+  const resumen = document.getElementById("resumen");
+  const confirmar = document.getElementById("confirmar");
+  const mensaje = document.getElementById("mensaje");
+
+  let corteElegido = "";
+  let horaElegida = "";
+
+  // Impedir seleccionar fechas pasadas.
+  const hoy = new Date();
+  const fechaLocal = new Date(
+    hoy.getTime() - hoy.getTimezoneOffset() * 60000
+  ).toISOString().slice(0, 10);
+
+  fecha.min = fechaLocal;
+
+  // Viernes y sábado tienen horario ampliado.
+  function esFinDeSemanaEspecial(dia) {
+    const fechaDia = new Date(dia + "T12:00:00");
+    return [5, 6].includes(fechaDia.getDay());
+  }
+
+  // Generar horas en intervalos de 30 minutos.
+  function generarHoras(dia) {
+    const especial = esFinDeSemanaEspecial(dia);
+    const limite = especial ? 27 * 60 : 22 * 60;
+    const lista = [];
+
+    for (let minutos = 15 * 60; minutos < limite; minutos += 30) {
+      const normalizado = minutos % (24 * 60);
+      const h = String(Math.floor(normalizado / 60)).padStart(2, "0");
+      const m = String(normalizado % 60).padStart(2, "0");
+
+      lista.push(h + ":" + m);
+    }
+
+    return lista;
+  }
+
+  // Guardar las reservas de cada fecha en este navegador.
+  function claveReservas(dia) {
+    return "reservas-peluqueria-" + dia;
+  }
+
+  function leerReservas(dia) {
+    try {
+      return JSON.parse(
+        localStorage.getItem(claveReservas(dia)) || "{}"
+      );
+    } catch {
+      return {};
+    }
+  }
+
+  // Actualizar el resumen y el botón.
+  function actualizarResumen() {
+    if (!fecha.value || !corteElegido || !horaElegida) {
+      resumen.textContent =
+        "Selecciona un día, una merca y una hora.";
+      confirmar.disabled = true;
+      return;
+    }
+
+    const partes = fecha.value.split("-");
+
+    resumen.textContent =
+      "Corte: " + corteElegido +
+      " | Fecha: " + partes[2] + "/" +
+      partes[1] + "/" + partes[0] +
+      " | Hora: " + horaElegida;
+
+    confirmar.disabled = false;
+  }
+
+  // Mostrar todas las horas y desactivar las reservadas.
+  function mostrarHoras() {
+    const dia = fecha.value;
+
+    horaElegida = "";
+    mensaje.textContent = "";
+    horas.innerHTML = "";
+
+    if (!dia) {
+      horas.textContent = "Selecciona primero una fecha.";
+      horario.textContent =
+        "Selecciona un día para ver las horas.";
+      actualizarResumen();
+      return;
+    }
+
+    const especial = esFinDeSemanaEspecial(dia);
+
+    horario.textContent = especial
+      ? "Viernes y sábado: de 15:00 a 03:00."
+      : "Domingo a jueves: de 15:00 a 22:00.";
+
+    const reservas = leerReservas(dia);
+    const lista = generarHoras(dia);
+
+    lista.forEach(hora => {
+      const boton = document.createElement("button");
+      boton.className = "hora";
+      boton.textContent = hora;
+      boton.type = "button";
+
+      if (reservas[hora]) {
+        boton.disabled = true;
+        boton.title = "Hora reservada";
+      } else {
+        boton.addEventListener("click", () => {
+          horaElegida = hora;
+
+          document.querySelectorAll(".hora").forEach(b => {
+            b.classList.toggle("seleccionada", b === boton);
+          });
+
+          actualizarResumen();
+        });
+      }
+
+      horas.appendChild(boton);
+    });
+
+    if (!lista.some(h => !reservas[h])) {
+      horas.textContent = "No quedan horas disponibles.";
+    }
+
+    actualizarResumen();
+  }
+
+  // Seleccionar la fecha.
+  fecha.addEventListener("change", mostrarHoras);
+
+  // Seleccionar una de las 8 ofertas.
+  document.querySelectorAll(".corte").forEach(boton => {
+    boton.addEventListener("click", () => {
+      corteElegido = boton.dataset.corte;
+
+      document.querySelectorAll(".corte").forEach(b => {
+        b.classList.toggle("seleccionado", b === boton);
+      });
+
+      actualizarResumen();
+    });
+  });
+
+  // Confirmar la cita.
+  confirmar.addEventListener("click", () => {
+    const dia = fecha.value;
+
+    if (!dia || !corteElegido || !horaElegida) return;
+
+    const reservas = leerReservas(dia);
+
+    // Comprobar de nuevo que la hora siga libre.
+    if (reservas[horaElegida]) {
+      mensaje.textContent =
+        "Esta hora ya está reservada. Elige otra.";
+      mostrarHoras();
+      return;
+    }
+
+    reservas[horaElegida] = {
+      corte: corteElegido,
+      fechaReserva: new Date().toISOString()
+    };
+
+    localStorage.setItem(
+      claveReservas(dia),
+      JSON.stringify(reservas)
+    );
+
+    const partes = dia.split("-");
+
+    mensaje.textContent =
+      "¡Cita guardada! " + corteElegido +
+      " el " + partes[2] + "/" + partes[1] +
+      "/" + partes[0] + " a las " + horaElegida + ".";
+
+    corteElegido = "";
+
+    document.querySelectorAll(".corte").forEach(b => {
+      b.classList.remove("seleccionado");
+    });
+
+    mostrarHoras();
+    actualizarResumen();
+  });
+
+  mostrarHoras();
+</script>
+
 </body>
 </html>
+
 
