@@ -1,0 +1,1608 @@
+/* ==========================================================
+   SuperTuxKart – hoja de estilos
+   Estilo inspirado en la web de Mario: rojo vivo, blanco,
+   tipografía redondeada, botones tipo píldora y tarjetas
+   que reaccionan al pasar el ratón.
+   ========================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;800&display=swap");
+
+:root {
+  --rojo: #e60012;
+  --rojo-oscuro: #b3000e;
+  --amarillo: #ffd400;
+  --tinta: #1f1f24;
+  --gris: #5b5b66;
+  --fondo: #ffffff;
+  --fondo-suave: #f5f5f7;
+  --borde: #e4e4ea;
+
+  --fuente-titulos: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
+  --fuente-texto: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --radio: 20px;
+  --sombra: 0 10px 30px rgba(31, 31, 36, 0.12);
+  --rapido: 0.2s ease;
+  --suave: 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  --alto-nav: 64px;
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--alto-nav) + 16px);
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente-texto);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--tinta);
+  background: var(--fondo);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--rojo);
+  font-weight: 700;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: color var(--rapido);
+}
+
+a:hover {
+  color: var(--rojo-oscuro);
+}
+
+:focus-visible {
+  outline: 3px solid var(--tinta);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ---------- Cabecera ---------- */
+header {
+  position: relative;
+  padding: clamp(3rem, 9vw, 6rem) 1.5rem clamp(4rem, 10vw, 7rem);
+  text-align: center;
+  color: #fff;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.14) 0 8%, transparent 8.5%),
+    radial-gradient(circle at 85% 70%, rgba(255, 255, 255, 0.1) 0 12%, transparent 12.5%),
+    var(--rojo);
+  border-radius: 0 0 50% 50% / 0 0 36px 36px;
+}
+
+header h1 {
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: clamp(3rem, 11vw, 6.5rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-shadow: 0 5px 0 var(--rojo-oscuro);
+  animation: entrada 0.7s cubic-bezier(0.2, 1.3, 0.4, 1) both;
+}
+
+header p {
+  margin: 1rem auto 0;
+  max-width: 32ch;
+  font-family: var(--fuente-titulos);
+  font-weight: 500;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  animation: entrada 0.7s 0.12s cubic-bezier(0.2, 1.3, 0.4, 1) both;
+}
+
+@keyframes entrada {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Navegación ---------- */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: var(--alto-nav);
+  margin-top: -2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--borde);
+  box-shadow: 0 4px 16px rgba(31, 31, 36, 0.06);
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav a {
+  position: relative;
+  display: block;
+  padding: 0.5rem 1.1rem;
+  font-family: var(--fuente-titulos);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--tinta);
+  text-decoration: none;
+  border-radius: 999px;
+  transition: color var(--rapido), background-color var(--rapido);
+}
+
+/* Barra roja que crece desde el centro al pasar el ratón */
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: 0;
+  height: 4px;
+  background: var(--rojo);
+  border-radius: 4px;
+  transform: translateX(-50%);
+  transition: width var(--suave);
+}
+
+nav a:hover,
+nav a:focus-visible {
+  color: var(--rojo);
+}
+
+nav a:hover::after,
+nav a:focus-visible::after {
+  width: calc(100% - 2.2rem);
+}
+
+/* ---------- Contenido principal ---------- */
+main {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 2rem;
+}
+
+main h2,
+main h3,
+aside h2 {
+  font-family: var(--fuente-titulos);
+  line-height: 1.15;
+  color: var(--tinta);
+}
+
+main h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  color: var(--rojo);
+}
+
+main h3 {
+  margin: 2.75rem 0 0.75rem;
+  font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+}
+
+main p {
+  margin: 0 0 1rem;
+  max-width: 68ch;
+}
+
+main strong {
+  font-weight: 800;
+}
+
+/* ---------- Listas ---------- */
+main ul,
+main ol {
+  padding-left: 0;
+  list-style: none;
+}
+
+/* Lista ordenada (Véase también) */
+main ol {
+  counter-reset: paso;
+}
+
+main ol li {
+  position: relative;
+  counter-increment: paso;
+  margin-bottom: 0.6rem;
+  padding: 0.85rem 1.1rem 0.85rem 3.2rem;
+  background: var(--fondo-suave);
+  border-radius: 14px;
+  transition: transform var(--suave), box-shadow var(--suave), background-color var(--rapido);
+}
+
+main ol li::before {
+  content: counter(paso);
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #fff;
+  background: var(--rojo);
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+main ol li:hover {
+  background: #fff;
+  box-shadow: var(--sombra);
+  transform: translateY(-3px);
+}
+
+/* ---------- Personajes: la lista pasa a ser tarjetas ---------- */
+main ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin: 1.5rem 0 0;
+}
+
+main ul li {
+  --rebote: cubic-bezier(0.3, 1.5, 0.5, 1);
+  position: relative;
+  --pad: 1rem;
+  overflow: hidden;
+  margin: 0;
+  padding: 0 var(--pad) 1.3rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: #fff;
+  background: linear-gradient(160deg, var(--c1), var(--c2));
+  border-radius: 22px;
+  box-shadow: 0 8px 20px rgba(31, 31, 36, 0.18);
+  cursor: pointer;
+  transition:
+    transform 0.45s var(--rebote),
+    rotate 0.45s var(--rebote),
+    scale 0.35s ease,
+    box-shadow 0.35s ease,
+    filter 0.35s ease;
+}
+
+/* Cada personaje tiene su color */
+main ul li:nth-child(1) { --c1: #2fb4ff; --c2: #1646c4; }  /* Tux   */
+main ul li:nth-child(2) { --c1: #3ccf55; --c2: #0f7a2a; }  /* Gnu   */
+main ul li:nth-child(3) { --c1: #9b4dff; --c2: #2a0a5e; }  /* Nolok */
+
+/* Imagen del personaje */
+main ul li::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  height: 9rem;
+  margin: 0 calc(var(--pad) * -1) 0.9rem;
+  padding: 0.8rem 0.9rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-origin: content-box;
+  background-size: contain;
+  filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.3));
+  transition: scale 0.5s var(--rebote), rotate 0.5s var(--rebote);
+  animation: flota 3.2s ease-in-out infinite;
+}
+
+main ul li:nth-child(1)::before { background-image: url("img/tux.webp"); }
+main ul li:nth-child(2)::before {
+  background-image: url("img/gnu.webp");
+  background-origin: border-box;
+  background-size: cover;
+  background-position: center 22%;
+  padding: 0;
+  filter: none;
+  animation: none;
+}
+main ul li:nth-child(3)::before {
+  background-image: url("img/nolok.webp");
+  animation-delay: -1.2s;
+}
+
+@keyframes flota {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -7px; }
+}
+
+/* Destello que cruza la tarjeta */
+main ul li::after {
+  content: "";
+  position: absolute;
+  top: -10%;
+  left: -70%;
+  width: 45%;
+  height: 120%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transform: skewX(-18deg);
+  pointer-events: none;
+  transition: left 0.8s ease;
+}
+
+/* El nombre es una etiqueta amarilla */
+main ul li strong {
+  display: inline-block;
+  margin-right: 0.2rem;
+  padding: 0.05rem 0.75rem;
+  font-family: var(--fuente-titulos);
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: var(--tinta);
+  background: var(--amarillo);
+  border-radius: 999px;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25);
+  transition: rotate 0.4s var(--rebote), scale 0.4s var(--rebote);
+}
+
+main ul li:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 24px 40px rgba(31, 31, 36, 0.32);
+}
+
+main ul li:nth-child(odd):hover  { rotate: -2deg; }
+main ul li:nth-child(even):hover { rotate: 2deg; }
+
+main ul li:hover::before {
+  scale: 1.15;
+  rotate: 4deg;
+}
+
+main ul li:hover::after {
+  left: 130%;
+}
+
+main ul li:hover strong {
+  rotate: -3deg;
+  scale: 1.05;
+}
+
+/* Al pasar por una tarjeta, las otras se apagan */
+main ul:has(li:hover) li:not(:hover) {
+  filter: saturate(0.4) brightness(0.92);
+  scale: 0.96;
+}
+
+/* ---------- Tabla ---------- */
+table {
+  width: 100%;
+  max-width: 560px;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 2px solid var(--tinta);
+  border-radius: var(--radio);
+}
+
+caption {
+  padding-bottom: 0.6rem;
+  font-family: var(--fuente-titulos);
+  font-weight: 600;
+  text-align: left;
+  color: var(--gris);
+}
+
+th,
+td {
+  padding: 0.8rem 1.1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--borde);
+  transition: background-color var(--rapido);
+}
+
+th {
+  width: 40%;
+  font-family: var(--fuente-titulos);
+  font-weight: 600;
+  color: #fff;
+  background: var(--rojo);
+  border-bottom-color: var(--rojo-oscuro);
+}
+
+tr:last-child th,
+tr:last-child td {
+  border-bottom: 0;
+}
+
+tr:first-child th { border-top-left-radius: 17px; }
+tr:first-child td { border-top-right-radius: 17px; }
+tr:last-child th  { border-bottom-left-radius: 17px; }
+tr:last-child td  { border-bottom-right-radius: 17px; }
+
+tr:hover td {
+  background: #fff5d6;
+}
+
+/* ---------- Formulario ---------- */
+form {
+  padding: 1.75rem;
+  background: var(--fondo-suave);
+  border-radius: var(--radio);
+}
+
+.notas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 1.5rem;
+}
+
+.notas label {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 3rem;
+  height: 3rem;
+  padding: 0 0.5rem;
+  font-family: var(--fuente-titulos);
+  font-weight: 600;
+  font-size: 1.1rem;
+  background: #fff;
+  border: 2px solid var(--borde);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform var(--suave), background-color var(--rapido),
+    border-color var(--rapido), color var(--rapido);
+}
+
+/* El radio real se oculta pero sigue siendo accesible */
+.notas input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.notas label:hover {
+  border-color: var(--rojo);
+  color: var(--rojo);
+  transform: translateY(-3px) scale(1.06);
+}
+
+.notas label:has(input:checked) {
+  color: #fff;
+  background: var(--rojo);
+  border-color: var(--rojo);
+  transform: scale(1.1);
+}
+
+.notas label:has(input:focus-visible) {
+  outline: 3px solid var(--tinta);
+  outline-offset: 3px;
+}
+
+form label[for] {
+  font-family: var(--fuente-titulos);
+  font-weight: 600;
+}
+
+textarea {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 0.4rem;
+  padding: 0.85rem 1rem;
+  font: inherit;
+  color: inherit;
+  resize: vertical;
+  background: #fff;
+  border: 2px solid var(--borde);
+  border-radius: 14px;
+  transition: border-color var(--rapido), box-shadow var(--rapido);
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--rojo);
+  box-shadow: 0 0 0 4px rgba(230, 0, 18, 0.15);
+}
+
+button {
+  padding: 0.85rem 2rem;
+  font-family: var(--fuente-titulos);
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #fff;
+  background: var(--rojo);
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 5px 0 var(--rojo-oscuro);
+  cursor: pointer;
+  transition: transform var(--rapido), box-shadow var(--rapido), background-color var(--rapido);
+}
+
+button:hover {
+  background: #ff1a2b;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 0 var(--rojo-oscuro);
+}
+
+button:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 var(--rojo-oscuro);
+}
+
+/* ==========================================================
+   Capturas como panel lateral de fondo (solo CSS)
+   Usa el <aside> y las <figure> que ya tiene el HTML.
+   El cambio de imagen va ligado al scroll con
+   animation-timeline: scroll() (Chrome, Edge, Safari 26+).
+   ========================================================== */
+
+/* El título y el texto del aside se ocultan visualmente
+   pero siguen disponibles para lectores de pantalla */
+aside > h2,
+aside > p {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+aside {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  width: var(--ancho-panel, 100%);
+  overflow: hidden;
+  background: var(--tinta);
+  /* borde izquierdo inclinado */
+  clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.galeria {
+  position: absolute;
+  inset: 0;
+}
+
+.galeria figure {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+}
+
+/* Sin soporte de scroll-timeline se queda fija la primera captura */
+.galeria figure:first-child {
+  opacity: 1;
+}
+
+.galeria img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 3.5rem 1.5rem 1.5rem 22%;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: #fff;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.78), transparent);
+}
+
+.etiqueta {
+  position: absolute;
+  top: 1.25rem;
+  left: 22%;
+  z-index: 2;
+  padding: 0.3rem 1rem;
+  font-family: var(--fuente-titulos);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--tinta);
+  background: var(--amarillo);
+  border-radius: 999px;
+  box-shadow: 0 3px 0 rgba(31, 31, 36, 0.25);
+}
+
+/* Barra amarilla que se llena según bajas por la página */
+aside::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  width: 6px;
+  height: 100%;
+  background: var(--amarillo);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+@media (min-width: 900px) {
+  :root {
+    --ancho-panel: 38vw;
+  }
+
+  body {
+    padding-right: var(--ancho-panel);
+  }
+}
+
+/* En pantallas pequeñas las capturas son un fondo suave */
+@media (max-width: 899px) {
+  aside {
+    display: none;
+  }
+
+  .galeria img {
+    filter: opacity(0.2);
+  }
+
+  figcaption {
+    padding: 0.5rem 1rem;
+    font-size: 0.7rem;
+    color: var(--gris);
+    background: rgba(255, 255, 255, 0.92);
+  }
+
+  .etiqueta {
+    display: none;
+  }
+
+  aside::after {
+    display: none;
+  }
+}
+
+/* ---------- Animaciones ligadas al scroll ---------- */
+@supports (animation-timeline: scroll()) {
+  @keyframes aparece {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes desaparece {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+
+  @keyframes acerca {
+    from { transform: scale(1.2); }
+    to   { transform: scale(1); }
+  }
+
+  @keyframes progreso {
+    from { transform: scaleY(0); }
+    to   { transform: scaleY(1); }
+  }
+
+  .galeria figure,
+  .galeria img,
+  aside::after {
+    animation-timeline: scroll(root block);
+    animation-timing-function: linear;
+  }
+
+  /* Fundido cruzado: cada captura ocupa un 20 % del recorrido */
+  .galeria figure:nth-child(1) {
+    animation-name: desaparece;
+    animation-range: 16% 24%;
+    animation-fill-mode: forwards;
+  }
+
+  .galeria figure:nth-child(2) {
+    animation-name: aparece, desaparece;
+    animation-range: 16% 24%, 36% 44%;
+    animation-fill-mode: both, forwards;
+  }
+
+  .galeria figure:nth-child(3) {
+    animation-name: aparece, desaparece;
+    animation-range: 36% 44%, 56% 64%;
+    animation-fill-mode: both, forwards;
+  }
+
+  .galeria figure:nth-child(4) {
+    animation-name: aparece, desaparece;
+    animation-range: 56% 64%, 76% 84%;
+    animation-fill-mode: both, forwards;
+  }
+
+  .galeria figure:nth-child(5) {
+    animation-name: aparece;
+    animation-range: 76% 84%;
+    animation-fill-mode: both;
+  }
+
+  /* Cada imagen se acerca mientras está en pantalla */
+  .galeria img {
+    animation-name: acerca;
+    animation-fill-mode: both;
+  }
+
+  .galeria figure:nth-child(1) img { animation-range: 0% 24%; }
+  .galeria figure:nth-child(2) img { animation-range: 16% 44%; }
+  .galeria figure:nth-child(3) img { animation-range: 36% 64%; }
+  .galeria figure:nth-child(4) img { animation-range: 56% 84%; }
+  .galeria figure:nth-child(5) img { animation-range: 76% 100%; }
+
+  aside::after {
+    animation-name: progreso;
+    animation-fill-mode: both;
+  }
+}
+
+/* ---------- Pie ---------- */
+footer {
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  color: #fff;
+  background: var(--tinta);
+  border-top: 8px solid var(--rojo);
+}
+
+footer p {
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-size: 1.1rem;
+}
+/* ==========================================================
+   Más vida: cabecera con karts, notas, bandera de meta
+   ========================================================== */
+
+/* ---------- Cabecera: Tux y Nolok llegan a la carrera ---------- */
+header {
+  overflow: hidden;
+}
+
+header h1,
+header p {
+  position: relative;
+  z-index: 1;
+}
+
+header::before,
+header::after {
+  content: "";
+  position: absolute;
+  bottom: 2.4rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  filter: drop-shadow(0 8px 6px rgba(0, 0, 0, 0.35));
+  pointer-events: none;
+  transition: translate 0.5s var(--suave), rotate 0.5s var(--suave);
+}
+
+header::after {
+  right: 4%;
+  width: clamp(95px, 13vw, 170px);
+  aspect-ratio: 561 / 413;
+  background-image: url("img/tux.webp");
+  animation: llega 1.2s cubic-bezier(0.2, 0.9, 0.3, 1) 0.2s backwards;
+}
+
+header::before {
+  left: 4%;
+  width: clamp(80px, 10vw, 130px);
+  aspect-ratio: 250 / 158;
+  background-image: url("img/nolok.webp");
+  scale: -1 1; /* mira hacia la derecha: persigue a Tux */
+  animation: llega 1.2s cubic-bezier(0.2, 0.9, 0.3, 1) 0.55s backwards;
+}
+
+header:hover::after {
+  translate: 0 -10px;
+  rotate: -6deg;
+}
+
+header:hover::before {
+  translate: 0 -6px;
+  rotate: 5deg;
+}
+
+@keyframes llega {
+  from { translate: -110vw 0; rotate: -4deg; }
+  70%  { translate: 2% 0;     rotate: 3deg; }
+  to   { translate: 0 0;      rotate: 0deg; }
+}
+
+/* ==========================================================
+   Títulos interactivos: h1, h2 y h3
+   ========================================================== */
+:root {
+  --rebote: cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+
+/* ---------- h1: relieve 3D y brillo que lo cruza ---------- */
+header h1 {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  background: linear-gradient(100deg, #fff 0 42%, var(--amarillo) 50%, #fff 58% 100%) 0 0 / 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: none;
+  /* Pose del efecto siempre puesta (también con movimiento reducido) */
+  scale: 1.06;
+  rotate: -1.5deg;
+  filter:
+    drop-shadow(0 4px 0 var(--rojo-oscuro))
+    drop-shadow(0 8px 0 var(--rojo-oscuro))
+    drop-shadow(0 16px 14px rgba(0, 0, 0, 0.35));
+  cursor: default;
+  transition: translate 0.4s var(--rebote);
+  animation:
+    entrada 0.7s cubic-bezier(0.2, 1.3, 0.4, 1) both,
+    brillo 5s linear 1.5s infinite,
+    latido 3.6s ease-in-out 0.7s infinite;
+}
+
+header h1:hover {
+  translate: 0 -5px;
+}
+
+header h1:active {
+  translate: 0 4px;
+}
+
+/* El título se balancea y su relieve respira sin parar */
+@keyframes latido {
+  0%, 100% {
+    scale: 1.05;
+    rotate: -1.8deg;
+    filter:
+      drop-shadow(0 4px 0 var(--rojo-oscuro))
+      drop-shadow(0 8px 0 var(--rojo-oscuro))
+      drop-shadow(0 16px 14px rgba(0, 0, 0, 0.35));
+  }
+  50% {
+    scale: 1.09;
+    rotate: 1.8deg;
+    filter:
+      drop-shadow(0 6px 0 var(--rojo-oscuro))
+      drop-shadow(0 12px 0 var(--rojo-oscuro))
+      drop-shadow(0 22px 18px rgba(0, 0, 0, 0.4));
+  }
+}
+
+@keyframes brillo {
+  0%   { background-position: 0% 0; }
+  35%  { background-position: 100% 0; }
+  100% { background-position: 100% 0; }
+}
+
+/* ---------- h2: la línea de meta se estira y la sombra amarilla aparece ---------- */
+main h2 {
+  text-shadow: 0 0 0 var(--amarillo);
+  cursor: default;
+  transition: transform 0.45s var(--rebote), text-shadow 0.3s ease;
+}
+
+main h2::after {
+  content: "";
+  display: block;
+  width: 7.5rem;
+  max-width: 100%;
+  height: 14px;
+  margin-top: 0.7rem;
+  background: repeating-conic-gradient(var(--tinta) 0 25%, #fff 0 50%) 0 0 / 14px 14px;
+  border: 2px solid var(--tinta);
+  border-radius: 4px;
+  transform-origin: left;
+  transition: width 0.6s var(--suave), background-position 0.6s var(--suave);
+}
+
+main h2:hover {
+  transform: translateX(8px);
+  text-shadow: 3px 3px 0 var(--amarillo);
+}
+
+main h2:hover::after {
+  width: 100%;
+  background-position: 14px 0;
+}
+
+/* ---------- h3: bandera que gira y subrayado que se dibuja ---------- */
+main h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: fit-content;
+  max-width: 100%;
+  padding-bottom: 0.3rem;
+  cursor: default;
+  background: linear-gradient(90deg, var(--rojo), var(--amarillo)) no-repeat left bottom / 0 4px;
+  transition:
+    background-size 0.5s var(--suave),
+    color 0.25s ease,
+    transform 0.4s var(--rebote);
+}
+
+main h3::before {
+  content: "";
+  flex: none;
+  width: 0.85em;
+  height: 0.85em;
+  background: repeating-conic-gradient(var(--tinta) 0 25%, #fff 0 50%) 0 0 / 0.425em 0.425em;
+  border: 2px solid var(--tinta);
+  border-radius: 3px;
+  rotate: -8deg;
+  transition: rotate 0.7s var(--rebote), scale 0.4s var(--rebote);
+}
+
+main h3:hover {
+  color: var(--rojo);
+  background-size: 100% 4px;
+  transform: translateX(6px);
+}
+
+main h3:hover::before {
+  rotate: 352deg;
+  scale: 1.3;
+}
+
+/* ---------- Notas: de rojo a verde y vista previa ---------- */
+.notas label:nth-child(1)  { --c: hsl(0 80% 45%); }
+.notas label:nth-child(2)  { --c: hsl(13 80% 44%); }
+.notas label:nth-child(3)  { --c: hsl(27 85% 42%); }
+.notas label:nth-child(4)  { --c: hsl(40 90% 38%); }
+.notas label:nth-child(5)  { --c: hsl(53 90% 36%); }
+.notas label:nth-child(6)  { --c: hsl(67 80% 34%); }
+.notas label:nth-child(7)  { --c: hsl(80 75% 34%); }
+.notas label:nth-child(8)  { --c: hsl(93 70% 33%); }
+.notas label:nth-child(9)  { --c: hsl(107 65% 32%); }
+.notas label:nth-child(10) { --c: hsl(120 65% 30%); }
+
+/* Al pasar por una nota se iluminan ella y todas las anteriores */
+.notas label:hover,
+.notas label:has(~ label:hover) {
+  color: var(--c);
+  background: color-mix(in srgb, var(--c) 14%, #fff);
+  border-color: var(--c);
+}
+
+.notas label:has(input:checked) {
+  color: #fff;
+  background: var(--c);
+  border-color: var(--c);
+  animation: salto-nota 0.5s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@keyframes salto-nota {
+  0%   { translate: 0 0; }
+  40%  { translate: 0 -16px; }
+  100% { translate: 0 0; }
+}
+
+/* ==========================================================
+   Fondo de la página: imagen del juego (img/fondo.jpg)
+   Para cambiar la imagen basta con cambiar --foto.
+   Capas: foto (html::before) + oscurecido (body::before)
+   ========================================================== */
+:root {
+  --foto: url("img/fondo.jpg");
+}
+
+html::before,
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* La foto, algo desenfocada y viva de color */
+html::before {
+  background-color: #14142b;
+  background-image: var(--foto);
+  background-size: cover;
+  background-position: center;
+  filter: saturate(1.1);
+}
+
+/* Oscurecido arriba y abajo y viñeta, para que el contenido destaque */
+body::before {
+  background:
+    linear-gradient(180deg, rgba(8, 8, 25, 0.55) 0%, rgba(8, 8, 25, 0.45) 50%, rgba(8, 8, 25, 0.7) 100%),
+    radial-gradient(ellipse at 50% 45%, transparent 50%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+/* ---------- El contenido va directamente sobre el fondo (sin recuadro) ---------- */
+main {
+  width: min(740px, calc(100% - 2rem));
+  max-width: none;
+  margin: 2.5rem auto;
+  padding: clamp(1.75rem, 5vw, 3rem) clamp(1.25rem, 4vw, 2.5rem) clamp(2rem, 5vw, 3rem);
+  color: #fff;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.65);
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* ==========================================================
+   Formulario exótico: galaxia neón
+   ========================================================== */
+@property --giro {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+form {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  color: #fff;
+  background: none;
+  border-radius: 28px;
+}
+
+/* Borde de arcoíris que gira */
+form::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  z-index: -2;
+  border-radius: 31px;
+  background: conic-gradient(from var(--giro, 0deg), #ff2d95, #ffd400, #2fe6ff, #9b4dff, #ff2d95);
+  box-shadow: 0 0 36px rgba(155, 77, 255, 0.45), 0 0 70px rgba(255, 45, 149, 0.25);
+  animation: giro 7s linear infinite;
+}
+
+/* Cielo nocturno con estrellas y nebulosas */
+form::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 28px;
+  background:
+    radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
+    radial-gradient(1px 1px at 95px 75px, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(2px 2px at 160px 125px, #ffd400, transparent),
+    radial-gradient(circle at 12% 8%, rgba(255, 45, 149, 0.5), transparent 45%),
+    radial-gradient(circle at 92% 92%, rgba(47, 230, 255, 0.42), transparent 45%),
+    radial-gradient(circle at 85% 12%, rgba(155, 77, 255, 0.45), transparent 40%),
+    linear-gradient(160deg, #1b0a3a, #0a1233);
+  background-size: 200px 160px, 200px 160px, 200px 160px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  background-repeat: repeat, repeat, repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+  animation: estrellas 30s linear infinite;
+}
+
+@keyframes giro {
+  to { --giro: 360deg; }
+}
+
+@keyframes estrellas {
+  to { background-position: -200px 160px, -200px 160px, -200px 160px, 0 0, 0 0, 0 0, 0 0; }
+}
+
+form label[for] {
+  color: #ffe9a8;
+  text-shadow: 0 0 12px rgba(255, 212, 0, 0.55);
+}
+
+/* ---------- Notas: orbes de neón ---------- */
+.notas label:nth-child(1)  { --c: hsl(340 100% 62%); }
+.notas label:nth-child(2)  { --c: hsl(10 100% 60%); }
+.notas label:nth-child(3)  { --c: hsl(28 100% 58%); }
+.notas label:nth-child(4)  { --c: hsl(45 100% 56%); }
+.notas label:nth-child(5)  { --c: hsl(62 100% 54%); }
+.notas label:nth-child(6)  { --c: hsl(85 100% 54%); }
+.notas label:nth-child(7)  { --c: hsl(110 100% 56%); }
+.notas label:nth-child(8)  { --c: hsl(140 100% 56%); }
+.notas label:nth-child(9)  { --c: hsl(170 100% 54%); }
+.notas label:nth-child(10) { --c: hsl(190 100% 58%); }
+
+.notas label {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.28);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.notas label:hover,
+.notas label:has(~ label:hover) {
+  color: #fff;
+  background: color-mix(in srgb, var(--c) 40%, transparent);
+  border-color: var(--c);
+  box-shadow: 0 0 16px var(--c);
+}
+
+.notas label:has(input:checked) {
+  color: #12082e;
+  background: var(--c);
+  border-color: #fff;
+  box-shadow: 0 0 26px var(--c), 0 0 6px #fff inset;
+}
+
+.notas label:has(input:focus-visible) {
+  outline-color: #fff;
+}
+
+/* Onda que sale de la nota elegida */
+.notas label::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border: 2px solid var(--c);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.notas label:has(input:checked)::after {
+  animation: onda 0.9s ease-out;
+}
+
+@keyframes onda {
+  from { opacity: 0.9; scale: 1; }
+  to   { opacity: 0;   scale: 2.2; }
+}
+
+/* ==========================================================
+   Notas como estrellas de "nivel de búsqueda"
+   Al elegir una, se encienden ella y las anteriores en cascada,
+   parpadeando en rojo y azul como una sirena antes de quedar doradas
+   ========================================================== */
+.notas {
+  counter-reset: nota;
+  gap: 0.4rem;
+  filter: drop-shadow(0 0 8px rgba(255, 200, 0, 0.45));
+}
+
+.notas label:nth-child(1) { --i: 0; }
+.notas label:nth-child(2) { --i: 1; }
+.notas label:nth-child(3) { --i: 2; }
+.notas label:nth-child(4) { --i: 3; }
+.notas label:nth-child(5) { --i: 4; }
+.notas label:nth-child(6) { --i: 5; }
+.notas label:nth-child(7) { --i: 6; }
+.notas label:nth-child(8) { --i: 7; }
+.notas label:nth-child(9) { --i: 8; }
+.notas label:nth-child(10) { --i: 9; }
+
+.notas label {
+  counter-increment: nota;
+  width: 2.9rem;
+  min-width: 0;
+  height: 2.9rem;
+  padding: 0;
+  font-size: 0; /* se oculta el número original; se dibuja con un contador */
+  background: rgba(255, 255, 255, 0.2);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  transition:
+    background 0.25s ease,
+    transform 0.4s var(--rebote);
+}
+
+/* Número dentro de la estrella */
+.notas label::before {
+  content: counter(nota);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding-top: 0.3rem;
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.25s ease;
+}
+
+.notas label::after {
+  display: none;
+}
+
+/* Vista previa al pasar el ratón */
+.notas label:hover,
+.notas label:has(~ label:hover) {
+  color: inherit;
+  background: rgba(255, 214, 0, 0.55);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.notas label:hover {
+  transform: translateY(-5px) scale(1.18);
+}
+
+/* Estrellas encendidas: la elegida y todas las anteriores */
+.notas label:has(input:checked),
+.notas label:has(~ label input:checked) {
+  color: inherit;
+  background: linear-gradient(160deg, #ffe45c, #ffb300 60%, #ff8a00);
+  border-color: transparent;
+  box-shadow: none;
+  animation:
+    estrella-pop 0.55s var(--rebote) calc(var(--i) * 45ms) backwards,
+    sirena 0.5s steps(1, end) calc(var(--i) * 45ms) 5;
+}
+
+.notas label:has(input:checked)::before,
+.notas label:has(~ label input:checked)::before {
+  color: #4a2f00;
+}
+
+.notas label:has(input:checked) {
+  transform: scale(1.12);
+}
+
+/* Con teclado: la estrella enfocada se pone blanca */
+.notas label:has(input:focus-visible) {
+  background: #fff !important;
+  transform: scale(1.2);
+}
+
+.notas label:has(input:focus-visible)::before {
+  color: #4a2f00;
+}
+
+@keyframes estrella-pop {
+  0%   { scale: 0.2; rotate: -90deg; opacity: 0; }
+  60%  { scale: 1.5; rotate: 12deg; opacity: 1; }
+  100% { scale: 1; rotate: 0deg; opacity: 1; }
+}
+
+@keyframes sirena {
+  0%  { background: #ff2a3a; }
+  50% { background: #2a6bff; }
+}
+
+/* Mensaje de nivel bajo las estrellas */
+.notas::after {
+  content: "Pulsa las estrellas";
+  flex: 0 0 100%;
+  margin-top: 0.4rem;
+  font-family: var(--fuente-titulos);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffd400;
+  text-shadow: 0 0 10px rgba(255, 212, 0, 0.6);
+}
+
+.notas:has(label:nth-child(1) input:checked)::after { content: "1 de 10 · Ni de broma"; }
+.notas:has(label:nth-child(2) input:checked)::after { content: "2 de 10 · Muy flojo"; }
+.notas:has(label:nth-child(3) input:checked)::after { content: "3 de 10 · Flojillo"; }
+.notas:has(label:nth-child(4) input:checked)::after { content: "4 de 10 · Regular"; }
+.notas:has(label:nth-child(5) input:checked)::after { content: "5 de 10 · Aprobado"; }
+.notas:has(label:nth-child(6) input:checked)::after { content: "6 de 10 · Bien"; }
+.notas:has(label:nth-child(7) input:checked)::after { content: "7 de 10 · Muy bien"; }
+.notas:has(label:nth-child(8) input:checked)::after { content: "8 de 10 · Genial"; }
+.notas:has(label:nth-child(9) input:checked)::after { content: "9 de 10 · Casi perfecto"; }
+.notas:has(label:nth-child(10) input:checked)::after { content: "10 de 10 · ¡Obra maestra!"; }
+
+.notas:has(label:nth-child(1):hover)::after { content: "1 de 10 · Ni de broma"; }
+.notas:has(label:nth-child(2):hover)::after { content: "2 de 10 · Muy flojo"; }
+.notas:has(label:nth-child(3):hover)::after { content: "3 de 10 · Flojillo"; }
+.notas:has(label:nth-child(4):hover)::after { content: "4 de 10 · Regular"; }
+.notas:has(label:nth-child(5):hover)::after { content: "5 de 10 · Aprobado"; }
+.notas:has(label:nth-child(6):hover)::after { content: "6 de 10 · Bien"; }
+.notas:has(label:nth-child(7):hover)::after { content: "7 de 10 · Muy bien"; }
+.notas:has(label:nth-child(8):hover)::after { content: "8 de 10 · Genial"; }
+.notas:has(label:nth-child(9):hover)::after { content: "9 de 10 · Casi perfecto"; }
+.notas:has(label:nth-child(10):hover)::after { content: "10 de 10 · ¡Obra maestra!"; }
+
+/* ---------- Comentario: cristal oscuro con brillo ---------- */
+textarea {
+  color: #fff;
+  caret-color: #2fe6ff;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+textarea:focus {
+  background: rgba(255, 255, 255, 0.13);
+  border-color: #2fe6ff;
+  box-shadow: 0 0 0 4px rgba(47, 230, 255, 0.2), 0 0 28px rgba(47, 230, 255, 0.5);
+}
+
+/* ---------- Botón: degradado líquido con destello ---------- */
+form button {
+  --grad: linear-gradient(110deg, #ff2d95, #ff8a00 40%, #ffd400 65%, #ff2d95);
+  position: relative;
+  overflow: hidden;
+  font-weight: 700;
+  color: #1b0a3a;
+  background: var(--grad) 0 0 / 250% 100%;
+  box-shadow: 0 5px 0 #8a0f55, 0 0 26px rgba(255, 45, 149, 0.6);
+  transition:
+    transform var(--rapido),
+    box-shadow var(--rapido),
+    background-position 0.7s ease;
+}
+
+form button:hover {
+  background: var(--grad) 100% 0 / 250% 100%;
+  box-shadow: 0 8px 0 #8a0f55, 0 0 42px rgba(255, 138, 0, 0.75);
+  transform: translateY(-3px) scale(1.05);
+}
+
+form button:active {
+  box-shadow: 0 2px 0 #8a0f55, 0 0 20px rgba(255, 45, 149, 0.6);
+  transform: translateY(3px);
+}
+
+form button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 40%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.75), transparent);
+  transform: skewX(-20deg);
+  animation: destello 3.2s ease-in-out infinite;
+}
+
+@keyframes destello {
+  0%, 55% { left: -60%; }
+  100%    { left: 130%; }
+}
+
+/* ==========================================================
+   Texto claro sobre el fondo (sin recuadros)
+   ========================================================== */
+main h2 {
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+}
+
+main h2:hover {
+  text-shadow: 3px 3px 0 var(--rojo);
+}
+
+main h3 {
+  color: #fff;
+}
+
+main h3:hover {
+  color: var(--amarillo);
+}
+
+main a {
+  color: var(--amarillo);
+}
+
+main a:hover {
+  color: #fff;
+}
+
+main ul li strong,
+form {
+  text-shadow: none;
+}
+
+/* Lista "Véase también": sin caja gris */
+main ol li {
+  background: transparent;
+  box-shadow: none;
+}
+
+main ol li:hover {
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+}
+
+/* Tabla legible sobre el fondo */
+table {
+  border-color: rgba(255, 255, 255, 0.75);
+}
+
+caption {
+  color: #e8e8ee;
+}
+
+td {
+  background: rgba(8, 8, 25, 0.5);
+  border-bottom-color: rgba(255, 255, 255, 0.15);
+}
+
+tr:hover td {
+  background: rgba(255, 212, 0, 0.28);
+}
+
+/* ---------- Pie con bandera de meta ---------- */
+footer {
+  position: relative;
+  padding-top: 3.75rem;
+  border-top: 0;
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: repeating-conic-gradient(#fff 0 25%, var(--tinta) 0 50%) 0 0 / 20px 20px;
+  border-bottom: 4px solid var(--rojo);
+}
+
+/* ---------- Barra de progreso en la navegación y entradas con scroll ---------- */
+nav::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--amarillo), var(--rojo));
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+@supports (animation-timeline: scroll()) {
+  @keyframes progreso-x {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+
+  @keyframes sube {
+    from { opacity: 0; translate: 0 70px; }
+    to   { opacity: 1; translate: 0 0; }
+  }
+
+  @keyframes crece {
+    from { scale: 0 1; }
+    to   { scale: 1 1; }
+  }
+
+  @keyframes entra-izq {
+    from { opacity: 0; translate: -50px 0; }
+    to   { opacity: 1; translate: 0 0; }
+  }
+
+  nav::after {
+    animation: progreso-x linear both;
+    animation-timeline: scroll(root block);
+  }
+
+  /* Las tarjetas suben al entrar en pantalla */
+  main ul li {
+    animation: sube linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 80%;
+  }
+
+  main h2::after {
+    animation: crece linear both;
+    animation-timeline: view();
+    animation-range: entry 20% cover 35%;
+  }
+
+  main h3 {
+    animation: entra-izq linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  body {
+    font-size: 1rem;
+  }
+
+  nav {
+    height: auto;
+    min-height: var(--alto-nav);
+    padding: 0.4rem 0.5rem;
+  }
+
+  nav a {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  form {
+    padding: 1.25rem;
+  }
+
+}
+
+/* Tarjetas de personajes en pantallas estrechas: siguen en línea */
+@media (max-width: 600px) {
+  main ul {
+    gap: 0.5rem;
+  }
+
+  main ul li {
+    --pad: 0.55rem;
+    padding-bottom: 0.9rem;
+    font-size: 0.72rem;
+    line-height: 1.35;
+    border-radius: 16px;
+  }
+
+  main ul li::before {
+    height: 5.5rem;
+    margin-bottom: 0.6rem;
+    padding: 0.5rem;
+  }
+
+  main ul li strong {
+    margin-bottom: 0.2rem;
+    padding: 0 0.55rem;
+    font-size: 0.95rem;
+  }
+
+  main ul li:hover {
+    transform: translateY(-6px);
+  }
+}
+
+/* ---------- Accesibilidad: menos movimiento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  header h1,
+  header p,
+  header::before,
+  header::after,
+  main h3,
+  main h2::after,
+  html::before,
+  form::before,
+  form::after,
+  form button::after,
+  .notas label::after,
+  main ul li,
+  main ul li::before,
+  .notas label,
+  .galeria img {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
